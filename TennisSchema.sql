@@ -23,25 +23,25 @@ CREATE TABLE tournament
 	);
 
 CREATE TABLE matches 
-	(tournament_id 		VARCHAR(9),
-	match_id  			INT, 
-	score 			VARCHAR(25), 
+	(tournament_id 		VARCHAR(50),
+	match_num  			INT, 
+	score 			VARCHAR(40), 
 	best_of 		INT, 
 	round 			VARCHAR(4), 
 	minutes 		INT, 
-	PRIMARY KEY (match_id),
+	PRIMARY KEY (match_num, tournament_id),
 	FOREIGN KEY (tournament_id) REFERENCES tournament (tournament_id)
 	);
 
 CREATE TABLE plays 
 	(player_id 			INT, 
-	match_id 			INT, 
+	match_num 			INT, 
 	win_loss			VARCHAR(4), 
 	ace 				INT, 
 	dbl_fault 			INT, 
 	serve_point 		INT, 
 	brk_points_saved 	INT, 
 	FOREIGN KEY (player_id) REFERENCES player (player_id), 
-	FOREIGN KEY (match_id) REFERENCES matches (match_id)
+	FOREIGN KEY (match_num) REFERENCES matches (match_num)
 	);
 	
