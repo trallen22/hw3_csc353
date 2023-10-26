@@ -115,7 +115,7 @@ for filename in glob.glob(f"{os.getcwd()}/tennis_atp/atp_matches_????.csv"):
 				sqlInsert('matches', curMatchTuple)
 				matchIdSet.add((row['tourney_id'], row['match_num']))
 
-			if not () in playsIdSet:
+			if not ((row['tourney_id'], row['match_num'])) in playsIdSet:
 				curWinnerTuple = (row['winner_id'], row['match_num'], 'win', 
 											(row['w_ace'] if not row['w_ace'] == '' else 0), 
 											(row['w_df'] if not row['w_df'] == '' else 0), 
@@ -128,6 +128,6 @@ for filename in glob.glob(f"{os.getcwd()}/tennis_atp/atp_matches_????.csv"):
 											(row['l_bpSaved'] if not row['l_bpSaved'] == '' else 0))
 				sqlInsert('plays', curWinnerTuple)
 				sqlInsert('plays', curLoserTuple)
-				playsIdSet.add((row['winner_id'], row['match_num']))
+				playsIdSet.add((row['tourney_id'], row['match_num']))
 
 cursor.close()
