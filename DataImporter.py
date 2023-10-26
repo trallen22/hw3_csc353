@@ -4,10 +4,8 @@ from dataclasses import dataclass
 import mysql.connector
 from mysql.connector import Error
 import glob
-import lxml
-import lxml.etree
-import datetime
 import csv 
+import os
 
 HOST = 'localhost'
 USER = 'root'
@@ -63,11 +61,10 @@ except Exception as e:
 # createSchema(connection)
 cursor = connection.cursor()
 
-import os
+
 print(os.getcwd())
 
 tourneyIdSet = set()
-
 print(f'starting to parse files')
 for filename in glob.glob(f"{os.getcwd()}/tennis_atp/atp_matches_????.csv"):
     print(f'parsing file {i}')
