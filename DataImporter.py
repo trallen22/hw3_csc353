@@ -14,7 +14,7 @@ USER = 'root'
 # This function takes a connection and then reads and executes a given sql file 
 def createSchema(connection):
 	# reading schema file 
-	sqlFile = open("Schema.sql", 'r')
+	sqlFile = open("TennisSchema.sql", 'r')
 	schema_string = sqlFile.readlines()
 	sqlFile.close()
 	cursor = connection.cursor()
@@ -40,7 +40,7 @@ def createSchema(connection):
 
 def sqlInsert(table, curTuple):
 	if table == 'plays':
-		sqlStr = f'something else'
+		sqlStr = f'INSERT INTO plays VALUES (%s, %s, %s, %s, %s, %s, %s);'
 	# elif table == 'matches':
 	# 	sqlStr = f'INSERT INTO {table} VALUES (%s, %s, %s, %s, %s);'
 	else: 
@@ -57,7 +57,7 @@ def sqlInsert(table, curTuple):
 i = 1 
 
 try: 
-	connection = mysql.connector.connect(host=HOST, user=USER, database="Tennis") 
+	connection = mysql.connector.connect(host=HOST, user=USER, password='123456', database="Tennis") 
 except Exception as e:
 	print(f'error: {e}')
 
@@ -71,6 +71,7 @@ print(os.getcwd())
 tourneyIdSet = set()
 playerIdSet = set()
 matchIdSet = set()
+playsIdSet = set()
 
 print(f'starting to parse files')
 for filename in glob.glob(f"{os.getcwd()}/tennis_atp/atp_matches_????.csv"):
@@ -114,5 +115,19 @@ for filename in glob.glob(f"{os.getcwd()}/tennis_atp/atp_matches_????.csv"):
 				sqlInsert('matches', curMatchTuple)
 				matchIdSet.add((row['tourney_id'], row['match_num']))
 
+			if not () in playsIdSet:
+				curWinnerTuple = (row['winner_id'], row['match_num'], 'win', 
+											(row['w_ace'] if not row['w_ace'] == '' else 0), 
+											(row['w_df'] if not row['w_df'] == '' else 0), 
+											(row['w_svpt'] if not row['w_svpt'] == '' else 0), 
+											(row['w_bpSaved'] if not row['w_bpSaved'] == '' else 0))
+				curLoserTuple = (row['loser_id'], row['match_num'], 'lose', 
+											(row['l_ace'] if not row['l_ace'] == '' else 0), 
+											(row['l_df'] if not row['l_df'] == '' else 0), 
+											(row['l_svpt'] if not row['l_svpt'] == '' else 0), 
+											(row['l_bpSaved'] if not row['l_bpSaved'] == '' else 0))
+				sqlInsert('plays', curWinnerTuple)
+				sqlInsert('plays', curLoserTuple)
+				playsIdSet.add((row['winner_id'], row['match_num']))
 
 cursor.close()
