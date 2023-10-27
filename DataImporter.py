@@ -75,9 +75,10 @@ playerIdSet = set()
 matchIdSet = set()
 playsIdSet = set()
 tourneyId = 0
+tourneyIdMap ={}
 
 print(f'starting to parse files')
-for filename in glob.glob(f"{os.getcwd()}/tennis_atp/atp_matches_????.csv"):
+for filename in glob.glob(f"{os.getcwd()}/tennis_atp/atp_matches_2007.csv"):
 	print(f'parsing file {i}: {filename}')
 	i += 1
 	
@@ -95,6 +96,8 @@ for filename in glob.glob(f"{os.getcwd()}/tennis_atp/atp_matches_????.csv"):
 				sqlInsert('tournament', curTourneyTuple)      
 				tourneyIdSet.add(row['tourney_id'])
 				tourneyId += 1
+				tourneyIdMap[row['tourney_id']] = tourneyId
+				# print('increment tourney id')
 
 			# # player table using winner from match
 			# if not row['winner_id'] in playerIdSet:
@@ -122,11 +125,12 @@ for filename in glob.glob(f"{os.getcwd()}/tennis_atp/atp_matches_????.csv"):
 			
 			# match table 
 			if not (row['tourney_id'], row['match_num']) in matchIdSet:
-				curMatchTuple = (tourneyId, row['match_num'], row['score'], 
+				curMatchTuple = (tourneyIdMap.get(row['tourney_id']), row['match_num'], row['score'], 
 								row['best_of'], row['round'], 
 								(row['minutes'] if not row['minutes'] == '' else None))
-				print(f"tourney_id: {row['tourney_id']} / {tourneyId} match num: {row['match_num']}")
-				print(f"cur Match Tuple: {curMatchTuple}")
+				if (row['tourney_id'] == '2007-615'):
+					print(f"tourney_id: {row['tourney_id']} / {tourneyId} match num: {row['match_num']}")
+					print(f"cur Match Tuple: {curMatchTuple}")
 
 				sqlInsert('matches', curMatchTuple)
 				matchIdSet.add((row['tourney_id'], row['match_num']))

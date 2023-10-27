@@ -24,7 +24,7 @@ CREATE TABLE tournament
 
 CREATE TABLE matches 
 	(tournament_id 		INT,
-	match_id  			INT, 
+	match_id  			INT AUTO_INCREMENT, 
 	score 			VARCHAR(40) NULL, 
 	best_of 		INT NULL, 
 	round 			VARCHAR(4) NULL, 
