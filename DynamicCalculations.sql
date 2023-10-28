@@ -39,12 +39,17 @@ USE Tennis;
 
 -- SELECT * FROM topAces;
 
+
 DROP TRIGGER IF EXISTS onInsertionPlayer;
+DELIMITER // 
 CREATE TRIGGER onInsertionPlayer 
 BEFORE INSERT ON player 
 FOR EACH ROW 
 BEGIN 
-    IF player.ioc='RUS' OR player.ioc='EST'
-    THEN SET player.ioc='USR'
+    IF NEW.ioc='RUS' OR NEW.ioc='EST'
+    THEN SET NEW.ioc='USR';
     END IF;
-END 
+END; 
+// 
+DELIMITER ;
+
