@@ -18,7 +18,7 @@ CREATE TABLE tournament
 	surface 			VARCHAR(10) NULL, 
 	draw_size 			INT NULL, 
 	tourney_level 		VARCHAR(3) NULL, 
-	tourney_date 		DATE NULL, 
+	tourney_date 		INT NULL, 
 	PRIMARY KEY (tournament_id) 
 	);
 
