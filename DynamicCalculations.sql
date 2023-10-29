@@ -1,4 +1,5 @@
 USE Tennis;
+-- DROP SCHEMA Tennis;
 
 -- DROP FUNCTION IF EXISTS aceCount;
 -- DELIMITER //

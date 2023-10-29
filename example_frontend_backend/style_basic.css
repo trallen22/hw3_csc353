@@ -1,0 +1,59 @@
+
+/* [ Box [ Margin [ Border [ Padding [ Content ] Padding ] Border ] Margin ] Box ]
+
+	Margin: Limit around the border
+	Padding: Limit inside the border
+
+	https://www.w3schools.com/Css/css_boxmodel.asp
+*/
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	/* List font names/families in order of preference */
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+header {
+	background-color: rgb(112, 71, 71);
+	padding: 30px;
+	text-align: center;
+	font-size: 25px;
+	color: white;
+}
+
+header p {
+	font-size: 10px;
+}
+
+th {
+	font-style: italic;	
+	background-color: lightgray;
+}
+
+/* tr:nth-child(even) {
+	background-color: lightgray;
+} */
+
+/* li {
+	background-color:black;
+	color:yellow;
+} */
+
+.city {
+	background-color: rgb(161, 131, 126);
+	color: orange;
+	border: 2px solid black;
+	margin: 20px;
+	padding: 20px;
+}
+
+.country {
+	background-color: rgb(161, 131, 126);
+	color: blue;
+	border: 2px solid black;
+	margin: 20px;
+	padding: 20px;
+}

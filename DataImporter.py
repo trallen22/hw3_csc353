@@ -62,11 +62,9 @@ try:
 except Exception as e:
 	print(f'error: {e}')
 
-# running the Schema.sql 
-# createSchema(connection)
 cursor = connection.cursor()
 
-createSchema(connection)
+# createSchema(connection)
 
 tourneyIdSet = set() 
 playerIdSet = set()
@@ -129,9 +127,9 @@ for filename in glob.glob(f"{os.getcwd()}/tennis_atp/atp_matches_????.csv"):
 				curMatchTuple = (tourneyIdMap.get(row['tourney_id']), 0, row['score'], 
 								row['best_of'], row['round'], 
 								(row['minutes'] if not row['minutes'] == '' else None))
-				if (row['tourney_id'] == '2007-615'):
-					print(f"tourney_id: {row['tourney_id']} / {tourneyId} match num: {row['match_num']}")
-					print(f"cur Match Tuple: {curMatchTuple}")
+				# if (row['tourney_id'] == '2007-615'):
+				# 	print(f"tourney_id: {row['tourney_id']} / {tourneyId} match num: {row['match_num']}")
+				# 	print(f"cur Match Tuple: {curMatchTuple}")
 
 				sqlInsert('matches', curMatchTuple)
 				matchIdSet.add((row['tourney_id'], row['match_num']))
@@ -159,12 +157,12 @@ for filename in glob.glob(f"{os.getcwd()}/tennis_atp/atp_matches_????.csv"):
 				sqlInsert('plays', curWinnerTuple)
 				sqlInsert('plays', curLoserTuple)
 				playsIdSet.add((row['tourney_id'], row['match_num']))
-			x += 1
-			if x == 5:
-				break
-		y += 1
-		if y == 5:
-			break
+		# 	x += 1
+		# 	if x == 5:
+		# 		break
+		# y += 1
+		# if y == 5:
+		# 	break
 
 connection.commit()
 

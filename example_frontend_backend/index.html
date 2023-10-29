@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>My First Webpage</title>
+	<meta charset="utf-8">
+
+	<!-- You can also define the contents of the file inside a <style> tag -->
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<!-- We will populate this list via the database, see Javascript code below -->
+
+	<ul id="myList">
+	</ul>
+
+	<p> First way of getting dynamic content: Javascript fetch API </p>
+	<button onclick="fetchData()"> Click to display students </button>
+
+	<hr>
+
+	<p> First way of getting dynamic content: HTML forms </p>
+	<form action="/student" method="GET">
+		<label for="fname">First name:</label>
+		<br>
+		<!-- Use "value" instead of "placeholder" for a default entered value -->
+		<!-- Note the required attribute here, but not in the last name -->
+		<!-- id is the local name for DOM manipulation; name is the name posted to the server -->
+		<input type="text" id="fname" name="fname" placeholder="(required)" required><br>
+
+		<label for="lname">Last name:</label>
+		<br>
+		<!-- Use "value" instead of "placeholder" for a default entered value -->
+		<input type="text" id="lname" name="lname" placeholder="(optional)"><br>
+
+		<label for="lname">Telephone:</label>
+		<br>
+		<!-- Learn the syntax for regular expression patterns in https://regexone.com/ -->
+		<input type="text" id="phone" name="phone" placeholder="555-555-1234"
+			pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+
+		<br>
+		<br>
+
+		<input type="submit" value="Submit">
+	</form>
+</body>
+
+<script>
+	function fetchData() {
+		const responsePromise = fetch("/student", {
+			method: "GET",
+			headers: {
+				"Content-type": "application/json; charset=UTF-8"
+			}
+		});
+
+		responsePromise.then(
+			// Fulfilled
+			async (response) => {
+				populateList(await response.json())
+			},
+			// Error
+			(error) => {
+				alert("Cannot obtain students")
+			})
+	}
+
+	// For testing in the HTML world
+	// <!-- <button type="button" onclick="populateList([['a', 'b'], ['c', 'd']])"> -->
+	function populateList(results) {
+		let list = document.getElementById("myList")
+
+		results.forEach(element => {
+			let student = document.createElement("li")
+
+			student.innerText = element.name
+
+			list.appendChild(student)
+		})
+	}
+</script>
+
+</html>
