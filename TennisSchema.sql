@@ -1,3 +1,4 @@
+-- Tristan Allen and Will Cox 
 DROP SCHEMA IF EXISTS Tennis;
 CREATE SCHEMA Tennis; 
 USE Tennis; 
