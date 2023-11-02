@@ -1,41 +1,15 @@
 # Tristan Allen and Will Cox 
 
-from dataclasses import dataclass
-from socketserver import StreamRequestHandler
 import mysql.connector
 from mysql.connector import Error
 import glob
 import csv 
 import os
+import sys
 
 HOST = 'localhost'
 USER = 'root'
 
-
-# This function takes a connection and then reads and executes a given sql file 
-def createSchema(connection):
-	# reading schema file 
-	sqlFile = open("TennisSchema.sql", 'r')
-	schema_string = sqlFile.readlines()
-	sqlFile.close()
-	cursor = connection.cursor()
-
-	newQuery = []
-	for line in schema_string:
-		line = line.strip()
-		line = line.replace(';', '; ')
-		newQuery.append(line)
-	singleQuery = "".join(newQuery)
-
-	listQuery = singleQuery.split("; ")
-
-	# running each command line by line 
-	for q in listQuery:
-		if q != '':
-			cursor = connection.cursor()
-			cursor.execute(f'{q};', multi=False)
-			connection.commit()
-	return
 
 def sqlInsert(table, curTuple):
 	if table == 'plays':
@@ -55,16 +29,14 @@ def sqlInsert(table, curTuple):
 # Main execution starts here
 ################
 
-i = 1 
 
 try: 
 	connection = mysql.connector.connect(host=HOST, user=USER, database="Tennis") 
 except Exception as e:
 	print(f'error: {e}')
+	sys.exit()
 
 cursor = connection.cursor()
-
-createSchema(connection)
 
 tourneyIdSet = set() 
 playerIdSet = set()
@@ -75,6 +47,7 @@ tourneyIdMap ={}
 matchId = 0
 matchIdMap = {}
 
+i = 1 
 y = 0
 print(f'starting to parse files')
 for filename in glob.glob(f"{os.getcwd()}/tennis_atp/atp_matches_????.csv"):
