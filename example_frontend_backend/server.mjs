@@ -2,9 +2,10 @@
 
 // You have to do an 'npm install express' to get the package
 // Documentation in: https://expressjs.com/en/starter/hello-world.html
-import express from 'express';
+import express, { query } from 'express';
 
 import * as db from "./db_mysql.mjs";
+import { start } from 'repl';
 
 var app = express();
 let port = 3001
@@ -31,9 +32,22 @@ app.get('/tournament', function(request, response){
     // console.log(request.query["field1"]);
 
     let year = request.query["tourney_date"]
-
-    console.log("SELECT * FROM tournament WHERE tourney_date > '" + year + "-01-01' AND tourney_date < '" + year + "-12-31'")
     db.queryCallback("SELECT * FROM tournament WHERE tourney_date > '" + year + "-01-01' AND tourney_date < '" + year + "-12-31'", 'yearQuery', (results) => {
+        response.json(results)
+    })
+});
+
+app.get('/aggregate', function(request, response){
+    // If we have fields available
+    // console.log(request.query["field1"]);
+    let queryParams = []
+    
+
+    let first_date = request.query["start_date"]
+    let last_date = request.query["end_date"]
+    queryParams.push(first_date)
+    queryParams.push(last_date)
+    db.queryCallback(queryParams, 'aggregateQuery', (results) => {
         response.json(results)
     })
 });

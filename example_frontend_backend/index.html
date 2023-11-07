@@ -48,7 +48,7 @@
 
 	</div>
 
-	<ul id="myList">
+	<!-- <ul id="myList">
 	</ul>
 
 	<p> First way of getting dynamic content: Javascript fetch API </p>
@@ -60,19 +60,16 @@
 	<form action="/senator" method="GET">
 		<label for="fname">First name:</label>
 		<br>
-		<!-- Use "value" instead of "placeholder" for a default entered value -->
-		<!-- Note the required attribute here, but not in the last name -->
-		<!-- id is the local name for DOM manipulation; name is the name posted to the server -->
 		<input type="text" id="fname" name="fname" placeholder="(required)" required><br>
 
 		<label for="lname">Last name:</label>
 		<br>
-		<!-- Use "value" instead of "placeholder" for a default entered value -->
+
 		<input type="text" id="lname" name="lname" placeholder="(optional)"><br>
 
 		<label for="lname">Telephone:</label>
 		<br>
-		<!-- Learn the syntax for regular expression patterns in https://regexone.com/ -->
+
 		<input type="text" id="phone" name="phone" placeholder="555-555-1234"
 			pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
 
@@ -80,10 +77,10 @@
 		<br>
 
 		<input type="submit" value="Submit">
-	</form>
+	</form> -->
 </body>
 
-<script>
+<!-- <script>
 	function fetchData() {
 		const responsePromise = fetch("/tournament", {
 			method: "GET",
@@ -104,7 +101,7 @@
 	}
 
 	// For testing in the HTML world
-	// <!-- <button type="button" onclick="populateList([['a', 'b'], ['c', 'd']])"> -->
+
 	function populateList(results) {
 		let list = document.getElementById("myList")
 
@@ -116,6 +113,6 @@
 			list.appendChild(tourney)
 		})
 	}
-</script>
+</script> -->
 
 </html>

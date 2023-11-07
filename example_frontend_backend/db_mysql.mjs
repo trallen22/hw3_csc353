@@ -1,6 +1,7 @@
 // You have to do an 'npm install mysql2' to get the package
 // Documentation in: https://www.npmjs.com/package/mysql2
 
+import { query } from 'express';
 import { createConnection } from 'mysql2';
 
 var connection = createConnection({
@@ -35,6 +36,22 @@ function queryCallback(queryParam, queryType, callback) {
 		});
 
 	}
+
+	else if(queryType == 'aggregateQuery'){
+
+
+		connection.query("CALL showAggregateStatistics('Novak Djokovic', ?, ?)", [queryParam[0], queryParam[1]], (error, results, fields) => {
+			if (error) throw error;
+
+			console.log(results)
+			callback(results);
+		});
+
+	}
+
+	//SELECT aceCount('Rafael Nadal', '20180101', '20220101');
+
+
 
 	// With parameters:
 	// "... WHERE name = ?", ['Fernanda'], (error ...)

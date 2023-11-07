@@ -45,6 +45,14 @@
 
 	function fetchData() {
     let year_input = document.getElementById('year-input').value
+
+    if(year_input < 1968 || year_input > 2023){
+
+      alert("Invalid Year")
+
+    } 
+    else {
+
 		const responsePromise = fetch("/tournament?tourney_date=" + year_input, {
 			method: "GET",
 			headers: {
@@ -61,13 +69,16 @@
 			(error) => {
 				alert("Cannot obtain tournaments")
 			})
-	}
+	  }
+}
 
 	// For testing in the HTML world
 	// <!-- <button type="button" onclick="populateList([['a', 'b'], ['c', 'd']])"> -->
 	function populateData(results) {
 
     let table = document.getElementById("tourney-body")
+
+    table.innerHTML = "";
 
 		results.forEach(element => {
 			let tourney = document.createElement("tr")

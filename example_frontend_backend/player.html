@@ -24,7 +24,7 @@
       <button id="search-btn" onclick="fetchData()">Search</button>
     </div>
 
-    <div class="row">
+    <div class="row d-flex justify-content-center text-center">
 
       <div class="col-12">
         
@@ -91,36 +91,35 @@
 	// For testing in the HTML world
 	// <!-- <button type="button" onclick="populateList([['a', 'b'], ['c', 'd']])"> -->
 	function populateData(results) {
-    let name = document.getElementById("player-name")
-		let country = document.getElementById("player-country")
-    let hand = document.getElementById("player-hand")
-    let age = document.getElementById("player-age")
-    let height = document.getElementById("player-height")
+    if (results.length == 0){
+      alert('Invalid Search. Please Try Again.')
+    }
 
-    let handHeading = document.getElementById("hand-heading")
-    let ageHeading = document.getElementById("age-heading")
-    let heightHeading = document.getElementById("height-heading")
-    let countryHeading = document.getElementById("country-heading")
+    else{
+      let name = document.getElementById("player-name")
+      let country = document.getElementById("player-country")
+      let hand = document.getElementById("player-hand")
+      let age = document.getElementById("player-age")
+      let height = document.getElementById("player-height")
+
+      let handHeading = document.getElementById("hand-heading")
+      let ageHeading = document.getElementById("age-heading")
+      let heightHeading = document.getElementById("height-heading")
+      let countryHeading = document.getElementById("country-heading")
 
 
-    name.innerHTML = results[0].name
-    country.innerHTML = results[0].ioc
-    hand.innerHTML = results[0].hand
-    age.innerHTML = results[0].age
-    height.innerHTML = results[0].height
-    handHeading.innerHTML = 'Hand:'
-    ageHeading.innerHTML = 'Age:'
-    heightHeading.innerHTML = 'Height:'
-    countryHeading.innerHTML = 'Country:'
+      name.innerHTML = results[0].name
+      country.innerHTML = results[0].ioc
+      hand.innerHTML = results[0].hand
+      age.innerHTML = results[0].age
+      height.innerHTML = results[0].height
+      handHeading.innerHTML = 'Hand:'
+      ageHeading.innerHTML = 'Age:'
+      heightHeading.innerHTML = 'Height:'
+      countryHeading.innerHTML = 'Country:'
+	  }
 
-		// results.forEach(element => {
-		// 	let tourney = document.createElement("li")
-
-		// 	tourney.innerText = element.name
-
-		// 	list.appendChild(tourney)
-		// })
-	}
+  }
 </script>
 
 </html>
