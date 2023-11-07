@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tournament</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="style_basic.css">
+  </head>
+<body>
+
+  <header>
+		<div class="container text-center">
+			<h1>
+				Tournament Search
+			</h1>
+		</div>
+	</header>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <input type="number" id="year-input" placeholder="Enter a Year" required class="text-center" style="width: 500px; margin: 20px;">
+      <button id="search-btn" onclick="fetchData()">Search</button>
+    </div>
+
+    <table class="sortable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Surface</th>
+          <th>Draw Size</th>
+          <th>Level</th>
+          <th>Date</th>
+       </tr>
+      </thead>
+       <tbody id="tourney-body">
+
+       </tbody>
+     </table>
+  </div>
+</body>
+
+<script>
+
+	function fetchData() {
+    let year_input = document.getElementById('year-input').value
+		const responsePromise = fetch("/tournament?tourney_date=" + year_input, {
+			method: "GET",
+			headers: {
+				"Content-type": "application/json; charset=UTF-8"
+			}
+		});
+
+		responsePromise.then(
+			// Fulfilled
+			async (response) => {
+				populateData(await response.json())
+			},
+			// Error
+			(error) => {
+				alert("Cannot obtain tournaments")
+			})
+	}
+
+	// For testing in the HTML world
+	// <!-- <button type="button" onclick="populateList([['a', 'b'], ['c', 'd']])"> -->
+	function populateData(results) {
+
+    let table = document.getElementById("tourney-body")
+
+		results.forEach(element => {
+			let tourney = document.createElement("tr")
+      let name = document.createElement("td")
+      let surface_type = document.createElement("td")
+      let draw_size = document.createElement("td")
+      let level = document.createElement("td")
+      let date = document.createElement("td")
+
+
+			name.innerText = element.name
+      surface_type.innerText = element.surface
+      draw_size.innerText = element.draw_size
+      level.innerText = element.tourney_level
+      date.innerText = element.tourney_date
+
+			table.appendChild(tourney)
+      table.appendChild(name)
+      table.appendChild(surface_type)
+      table.appendChild(draw_size)
+      table.appendChild(level)
+      table.appendChild(date)
+
+		})
+	}
+</script>
+
+</html>

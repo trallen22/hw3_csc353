@@ -2,15 +2,51 @@
 <html lang="en">
 
 <head>
-	<title>My First Webpage</title>
-	<meta charset="utf-8">
 
-	<!-- You can also define the contents of the file inside a <style> tag -->
-	<link rel="stylesheet" href="style.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>HW3</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<link rel="stylesheet" href="style_basic.css">
 </head>
 
 <body>
 	<!-- We will populate this list via the database, see Javascript code below -->
+	<header>
+		<div class="container text-center">
+			<h1>
+				CSC 353 HW3
+			</h1>
+		</div>
+	</header>
+
+	<div class="row">
+
+		<div class="col-12 col-lg-4" id="home-btn">
+
+			<a href="player.html">
+				<button>Search Player</button>
+			</a>
+
+		</div>
+
+		<div class="col-12 col-lg-4" id="home-btn">
+
+			<a href="tournament.html">
+				<button>View Tournaments</button>
+			</a>
+
+		</div>
+
+		<div class="col-12 col-lg-4" id="home-btn">
+
+			<a href="stats.html">
+				<button>Player Stats</button>
+			</a>
+
+		</div>
+
+	</div>
 
 	<ul id="myList">
 	</ul>
@@ -21,7 +57,7 @@
 	<hr>
 
 	<p> First way of getting dynamic content: HTML forms </p>
-	<form action="/student" method="GET">
+	<form action="/senator" method="GET">
 		<label for="fname">First name:</label>
 		<br>
 		<!-- Use "value" instead of "placeholder" for a default entered value -->
@@ -49,7 +85,7 @@
 
 <script>
 	function fetchData() {
-		const responsePromise = fetch("/student", {
+		const responsePromise = fetch("/tournament", {
 			method: "GET",
 			headers: {
 				"Content-type": "application/json; charset=UTF-8"
@@ -73,11 +109,11 @@
 		let list = document.getElementById("myList")
 
 		results.forEach(element => {
-			let student = document.createElement("li")
+			let tourney = document.createElement("li")
 
-			student.innerText = element.name
+			tourney.innerText = element.name
 
-			list.appendChild(student)
+			list.appendChild(tourney)
 		})
 	}
 </script>

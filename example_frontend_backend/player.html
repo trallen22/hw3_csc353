@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Player</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="style_basic.css">
+  </head>
+<body>
+
+  <header>
+		<div class="container text-center">
+			<h1>
+				Player Search
+			</h1>
+		</div>
+	</header>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <input type="text" id="player-input" name="player-input" placeholder="Enter Player Name" required class="text-center" style="width: 500px; margin: 20px;">
+      <button id="search-btn" onclick="fetchData()">Search</button>
+    </div>
+
+    <div class="row">
+
+      <div class="col-12">
+        
+        <h1 id="player-name"></h1>
+
+      </div>
+
+      <div class="col-12">
+
+        <label for="player-country" id="country-heading" style="font-size: 1.5rem; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"></label>
+        <h2 id="player-country"></h2>
+        
+      </div>
+
+      <div class="col-12">
+
+        <label for="player-height" id="height-heading" style="font-size: 1.5rem; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"></label>
+        <h2 id= "player-height"></h2>
+        
+      </div>
+
+      <div class="col-12">
+
+        <label for="player-age" id="age-heading" style="font-size: 1.5rem; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"></label>
+
+        <h2 id="player-age"></h2>
+        
+      </div>
+
+      <div class="col-12">
+
+        <label for="player-hand" id="hand-heading" style="font-size: 2rem; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"></label>
+
+        <h2 id="player-hand"></h2>
+        
+      </div>
+
+    </div>
+  </div>
+</body>
+
+<script>
+
+	function fetchData() {
+    let player_name = document.getElementById('player-input').value
+		const responsePromise = fetch("/player?name=" + player_name, {
+			method: "GET",
+			headers: {
+				"Content-type": "application/json; charset=UTF-8"
+			}
+		});
+
+		responsePromise.then(
+			// Fulfilled
+			async (response) => {
+				populateData(await response.json())
+			},
+			// Error
+			(error) => {
+				alert("Cannot obtain students")
+			})
+	}
+
+	// For testing in the HTML world
+	// <!-- <button type="button" onclick="populateList([['a', 'b'], ['c', 'd']])"> -->
+	function populateData(results) {
+    let name = document.getElementById("player-name")
+		let country = document.getElementById("player-country")
+    let hand = document.getElementById("player-hand")
+    let age = document.getElementById("player-age")
+    let height = document.getElementById("player-height")
+
+    let handHeading = document.getElementById("hand-heading")
+    let ageHeading = document.getElementById("age-heading")
+    let heightHeading = document.getElementById("height-heading")
+    let countryHeading = document.getElementById("country-heading")
+
+
+    name.innerHTML = results[0].name
+    country.innerHTML = results[0].ioc
+    hand.innerHTML = results[0].hand
+    age.innerHTML = results[0].age
+    height.innerHTML = results[0].height
+    handHeading.innerHTML = 'Hand:'
+    ageHeading.innerHTML = 'Age:'
+    heightHeading.innerHTML = 'Height:'
+    countryHeading.innerHTML = 'Country:'
+
+		// results.forEach(element => {
+		// 	let tourney = document.createElement("li")
+
+		// 	tourney.innerText = element.name
+
+		// 	list.appendChild(tourney)
+		// })
+	}
+</script>
+
+</html>

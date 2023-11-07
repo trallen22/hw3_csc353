@@ -34,7 +34,7 @@ def sqlInsert(table, curTuple):
 
 
 try: 
-	connection = mysql.connector.connect(host=HOST, user=USER, database="Tennis") 
+	connection = mysql.connector.connect(host=HOST, user=USER, password='123456', database="Tennis") 
 except Exception as e:
 	print(f'error: {e}')
 	sys.exit()

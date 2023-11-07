@@ -4,23 +4,37 @@
 import { createConnection } from 'mysql2';
 
 var connection = createConnection({
-	host: 'domains.davidson.edu',
-	user: 'your_name',
-	password: 'your_pass',
-	database: 'your_db'
+	host: 'localhost',
+	user: 'root',
+	password: '123456',
+	database: 'Tennis'
 });
 
 function connect() {
 	connection.connect();
 }
 
-function queryCallback(callback) {
-	connection.query("SELECT * FROM Student", (error, results, fields) => {
-		if (error) throw error;
+function queryCallback(queryParam, queryType, callback) {
+	if(queryType == 'playerQuery'){
 
-		console.log(results)
-		callback(results);
-	});
+		connection.query("SELECT * FROM player WHERE name = ?", [queryParam], (error, results, fields) => {
+			if (error) throw error;
+
+			console.log(results)
+			callback(results);
+		});
+
+	}
+	else if(queryType == 'yearQuery'){
+
+		connection.query(queryParam, (error, results, fields) => {
+			if (error) throw error;
+
+			console.log(results)
+			callback(results);
+		});
+
+	}
 
 	// With parameters:
 	// "... WHERE name = ?", ['Fernanda'], (error ...)
