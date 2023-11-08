@@ -24,14 +24,14 @@
       <button id="search-btn" onclick="fetchData()">Search</button>
     </div>
 
-    <table class="sortable">
+    <table id="myTable">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Surface</th>
-          <th>Draw Size</th>
-          <th>Level</th>
-          <th>Date</th>
+          <th onclick="sortTable(0)">Name</th>
+          <th onclick="sortTable(1)">Surface</th>
+          <th onclick="sortTable(2)">Draw Size</th>
+          <th onclick="sortTable(3)">Level</th>
+          <th onclick="sortTable(4)">Date</th>
        </tr>
       </thead>
        <tbody id="tourney-body">
@@ -44,6 +44,65 @@
 <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
 
 <script>
+
+
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  dir = "asc"; 
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+    for (i = 1; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      if(n == 2){
+
+        var xInt = 0
+        var yInt = 0
+        xInt += parseFloat(x.innerHTML);
+        yInt += parseFloat(y.innerHTML);
+
+        if (dir == "asc") {
+        if (xInt > yInt) {
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (xInt < yInt) {
+          shouldSwitch = true;
+          break;
+        }
+      }
+      }
+      else{
+        if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          shouldSwitch = true;
+          break;
+        }
+      }
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      switchcount ++;      
+    } else {
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
 
 	function fetchData() {
     let year_input = document.getElementById('year-input').value
@@ -74,8 +133,6 @@
 	  }
 }
 
-	// For testing in the HTML world
-	// <!-- <button type="button" onclick="populateList([['a', 'b'], ['c', 'd']])"> -->
 	function populateData(results) {
 
     let table = document.getElementById("tourney-body")
@@ -83,12 +140,15 @@
     table.innerHTML = "";
 
 		results.forEach(element => {
-			let tourney = document.createElement("tr")
-      let name = document.createElement("td")
-      let surface_type = document.createElement("td")
-      let draw_size = document.createElement("td")
-      let level = document.createElement("td")
-      let date = document.createElement("td")
+			let tourney_row = table.insertRow(-1)
+      let name = tourney_row.insertCell(0)
+      let surface_type = tourney_row.insertCell(1)
+      let draw_size = tourney_row.insertCell(2)
+      let level = tourney_row.insertCell(3)
+      let date = tourney_row.insertCell(4)
+
+
+      
 
 
 			name.innerText = element.name
@@ -96,13 +156,6 @@
       draw_size.innerText = element.draw_size
       level.innerText = element.tourney_level
       date.innerText = element.tourney_date
-
-			table.appendChild(tourney)
-      table.appendChild(name)
-      table.appendChild(surface_type)
-      table.appendChild(draw_size)
-      table.appendChild(level)
-      table.appendChild(date)
 
 		})
 	}
