@@ -20,99 +20,38 @@
 		</div>
 	</header>
 
-	<div class="row">
+	<div class="container">
 
-		<div class="col-12 col-lg-4" id="home-btn">
+		<div class="row">
 
-			<a href="player.html">
-				<button>Search Player</button>
-			</a>
-
+			<div class="col-12 col-lg-4" id="home-btn">
+	
+				<a href="player.html">
+					<button>Search Player</button>
+				</a>
+	
+			</div>
+	
+			<div class="col-12 col-lg-4" id="home-btn">
+	
+				<a href="tournament.html">
+					<button>View Tournaments</button>
+				</a>
+	
+			</div>
+	
+			<div class="col-12 col-lg-4" id="home-btn">
+	
+				<a href="stats.html">
+					<button>Player Stats</button>
+				</a>
+	
+			</div>
+	
 		</div>
-
-		<div class="col-12 col-lg-4" id="home-btn">
-
-			<a href="tournament.html">
-				<button>View Tournaments</button>
-			</a>
-
-		</div>
-
-		<div class="col-12 col-lg-4" id="home-btn">
-
-			<a href="stats.html">
-				<button>Player Stats</button>
-			</a>
-
-		</div>
+	
 
 	</div>
-
-	<!-- <ul id="myList">
-	</ul>
-
-	<p> First way of getting dynamic content: Javascript fetch API </p>
-	<button onclick="fetchData()"> Click to display students </button>
-
-	<hr>
-
-	<p> First way of getting dynamic content: HTML forms </p>
-	<form action="/senator" method="GET">
-		<label for="fname">First name:</label>
-		<br>
-		<input type="text" id="fname" name="fname" placeholder="(required)" required><br>
-
-		<label for="lname">Last name:</label>
-		<br>
-
-		<input type="text" id="lname" name="lname" placeholder="(optional)"><br>
-
-		<label for="lname">Telephone:</label>
-		<br>
-
-		<input type="text" id="phone" name="phone" placeholder="555-555-1234"
-			pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
-
-		<br>
-		<br>
-
-		<input type="submit" value="Submit">
-	</form> -->
+	
 </body>
-
-<!-- <script>
-	function fetchData() {
-		const responsePromise = fetch("/tournament", {
-			method: "GET",
-			headers: {
-				"Content-type": "application/json; charset=UTF-8"
-			}
-		});
-
-		responsePromise.then(
-			// Fulfilled
-			async (response) => {
-				populateList(await response.json())
-			},
-			// Error
-			(error) => {
-				alert("Cannot obtain students")
-			})
-	}
-
-	// For testing in the HTML world
-
-	function populateList(results) {
-		let list = document.getElementById("myList")
-
-		results.forEach(element => {
-			let tourney = document.createElement("li")
-
-			tourney.innerText = element.name
-
-			list.appendChild(tourney)
-		})
-	}
-</script> -->
-
 </html>

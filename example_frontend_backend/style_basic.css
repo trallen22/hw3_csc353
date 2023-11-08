@@ -6,9 +6,9 @@
 	https://www.w3schools.com/Css/css_boxmodel.asp
 */
 
-* {
+/* * {
 	box-sizing: border-box;
-}
+} */
 
 body {
 	/* List font names/families in order of preference */
