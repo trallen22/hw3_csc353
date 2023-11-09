@@ -40,7 +40,7 @@ function queryCallback(queryParam, queryType, callback) {
 	else if(queryType == 'aggregateQuery'){
 
 
-		connection.query("CALL showAggregateStatistics('Novak Djokovic', ?, ?)", [queryParam[0], queryParam[1]], (error, results, fields) => {
+		connection.query("CALL showAggregateStatistics(?, ?, ?)", [queryParam[0], queryParam[1], queryParam[2]], (error, results, fields) => {
 			if (error) throw error;
 
 			console.log(results)

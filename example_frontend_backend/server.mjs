@@ -45,6 +45,8 @@ app.get('/aggregate', function(request, response){
 
     let first_date = request.query["start_date"]
     let last_date = request.query["end_date"]
+    let player_name = request.query["name"]
+    queryParams.push(player_name)
     queryParams.push(first_date)
     queryParams.push(last_date)
     db.queryCallback(queryParams, 'aggregateQuery', (results) => {

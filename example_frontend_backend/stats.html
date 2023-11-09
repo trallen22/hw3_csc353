@@ -23,9 +23,12 @@
       <!-- <input type="text" id="player-input" name="player-input" placeholder="Enter Player Name" required class="text-center" style="width: 500px; margin: 20px;"> -->
       <div class="col-12 d-flex justify-content-center text-center">
 
-        <label for="start-input"  style="font-size: 1.5rem; font-family: Georgia, 'Times New Roman', Times, serif;">Start Date:</label>
+
+        <label for="name-input"  style="font-size: 1.25rem; font-family: Georgia, 'Times New Roman', Times, serif;">Player:</label>
+        <input type="text" id="name-input" placeholder="Enter Player Name" required class="text-center" style="width: 300px; margin: 20px;" required>
+        <label for="start-input"  style="font-size: 1.25rem; font-family: Georgia, 'Times New Roman', Times, serif;">Start Date:</label>
         <input type="date" id="start-input" placeholder="Enter Start Date" required class="text-center" style="width: 300px; margin: 20px;" required min='1968-01-01' max='2023-12-31'>
-        <label for="end-input"  style="font-size: 1.5rem; font-family: Georgia, 'Times New Roman', Times, serif;">End Date:</label>
+        <label for="end-input"  style="font-size: 1.25rem; font-family: Georgia, 'Times New Roman', Times, serif;">End Date:</label>
         <input type="date" id="end-input" placeholder="Enter End Date" required class="text-center" style="width: 300px; margin: 20px;" required min='1968-01-01' max='2023-12-31'">
 
       </div>
@@ -91,11 +94,12 @@
 
 
 
+    let player_name = document.getElementById('name-input').value
     let start_date = document.getElementById('start-input').value
     let end_date = document.getElementById('end-input').value
-    if(start_date != '' && end_date != ''){
+    if(start_date != '' && end_date != '' && player_name != ''){
 
-      const responsePromise = fetch("/aggregate?start_date=" + start_date +"&end_date=" + end_date, {
+      const responsePromise = fetch("/aggregate?start_date=" + start_date +"&end_date=" + end_date + '&name=' + player_name, {
 			method: "GET",
 			headers: {
 				"Content-type": "application/json; charset=UTF-8"
@@ -116,7 +120,7 @@
           alert("Cannot obtain stats")
         })
     }else{
-      alert('Fill in both dates.')
+      alert('Fill in all fields!')
     }
 	
 	}
