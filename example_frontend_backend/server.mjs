@@ -16,6 +16,8 @@ db.connect();
 app.use(express.static('.'))
 
 // For GET requests to "/student?field1=value1&field2=value2"
+
+//call for our player info page
 app.get('/player', function(request, response){
     // If we have fields available
     // console.log(request.query["field1"]);
@@ -27,6 +29,7 @@ app.get('/player', function(request, response){
     })
 });
 
+//call for our tournament page
 app.get('/tournament', function(request, response){
     // If we have fields available
     // console.log(request.query["field1"]);
@@ -37,6 +40,7 @@ app.get('/tournament', function(request, response){
     })
 });
 
+//call for our aggregate stats page
 app.get('/aggregate', function(request, response){
     // If we have fields available
     // console.log(request.query["field1"]);

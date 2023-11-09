@@ -89,7 +89,7 @@
 </body>
 
 <script>
-  //fetch data from player and date inputs
+  //fetch data from player and date inputs and initiate a fetch call
 	function fetchData() {
     let player_name = document.getElementById('name-input').value
     let start_date = document.getElementById('start-input').value
@@ -102,7 +102,6 @@
 				"Content-type": "application/json; charset=UTF-8"
 			}
       });
-
       responsePromise.then(
         // Fulfilled
         async (response) => {
@@ -121,16 +120,12 @@
     }
 	
 	}
-
-	// For testing in the HTML world
-	// <!-- <button type="button" onclick="populateList([['a', 'b'], ['c', 'd']])"> -->
+  //populate html fields with data returned from the fetch call
 	function populateData(results) {
     try{
-
       if (results.length == 0){
         alert('Invalid Search. Please Try Again.')
       }
-
       else{
         let name = document.getElementById("player-name")
         let aces = document.getElementById("aces-per-match")
@@ -154,13 +149,10 @@
         spHeading.innerHTML = 'Serve Points Per Match:'
         bpHeading.innerHTML = 'Break Points Per Match:'
       }
-
     }
     catch{
       alert('Error! Try again.')
     }
-    
-
   }
 </script>
 

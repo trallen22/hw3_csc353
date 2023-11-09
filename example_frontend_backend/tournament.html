@@ -45,7 +45,7 @@
 
 <script>
 
-
+//add a sorting function to a column in our table
 function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById("myTable");
@@ -58,6 +58,7 @@ function sortTable(n) {
       shouldSwitch = false;
       x = rows[i].getElementsByTagName("TD")[n];
       y = rows[i + 1].getElementsByTagName("TD")[n];
+      //if we our sorting the second column we know that we are sorting integers
       if(n == 2){
 
         var xInt = 0
@@ -76,7 +77,7 @@ function sortTable(n) {
           break;
         }
       }
-      }
+      } //else we are sorting text
       else{
         if (dir == "asc") {
         if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
@@ -103,10 +104,10 @@ function sortTable(n) {
     }
   }
 }
-
+  //get the year input from the html input and put it into a fetch call
 	function fetchData() {
     let year_input = document.getElementById('year-input').value
-
+    //make sure the year is a valid year in our database
     if(year_input < 1968 || year_input > 2023){
 
       alert("Invalid Year")
@@ -114,25 +115,25 @@ function sortTable(n) {
     } 
     else {
 
-		const responsePromise = fetch("/tournament?tourney_date=" + year_input, {
-			method: "GET",
-			headers: {
-				"Content-type": "application/json; charset=UTF-8"
-			}
-		});
+      const responsePromise = fetch("/tournament?tourney_date=" + year_input, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      });
 
-		responsePromise.then(
-			// Fulfilled
-			async (response) => {
-				populateData(await response.json())
-			},
-			// Error
-			(error) => {
-				alert("Cannot obtain tournaments")
-			})
+      responsePromise.then(
+        // Fulfilled
+        async (response) => {
+          populateData(await response.json())
+        },
+        // Error
+        (error) => {
+          alert("Cannot obtain tournaments")
+        })
 	  }
 }
-
+  //populate table based on data returned from fetch call
 	function populateData(results) {
 
     let table = document.getElementById("tourney-body")

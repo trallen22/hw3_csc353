@@ -67,7 +67,7 @@
 </body>
 
 <script>
-
+  //fetch the input from the html elements
 	function fetchData() {
     let player_name = document.getElementById('player-input').value
 		const responsePromise = fetch("/player?name=" + player_name, {
@@ -88,8 +88,8 @@
 			})
 	}
 
-	// For testing in the HTML world
-	// <!-- <button type="button" onclick="populateList([['a', 'b'], ['c', 'd']])"> -->
+	
+  //populate html elements based on data received from fetch call
 	function populateData(results) {
     if (results.length == 0){
       alert('Invalid Search. Please Try Again.')
