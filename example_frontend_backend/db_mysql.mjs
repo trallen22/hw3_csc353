@@ -16,6 +16,7 @@ function connect() {
 }
 
 function queryCallback(queryParam, queryType, callback) {
+	//if we want our player info query
 	if(queryType == 'playerQuery'){
 
 		connection.query("SELECT * FROM player WHERE name = ?", [queryParam], (error, results, fields) => {
@@ -26,6 +27,7 @@ function queryCallback(queryParam, queryType, callback) {
 		});
 
 	}
+	//if we want our tournament query
 	else if(queryType == 'yearQuery'){
 
 		connection.query(queryParam, (error, results, fields) => {
@@ -36,7 +38,7 @@ function queryCallback(queryParam, queryType, callback) {
 		});
 
 	}
-
+	//if we want aggregate stats query
 	else if(queryType == 'aggregateQuery'){
 
 
@@ -48,11 +50,6 @@ function queryCallback(queryParam, queryType, callback) {
 		});
 
 	}
-
-	//SELECT aceCount('Rafael Nadal', '20180101', '20220101');
-
-
-
 	// With parameters:
 	// "... WHERE name = ?", ['Fernanda'], (error ...)
 }
