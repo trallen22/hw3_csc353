@@ -22,7 +22,7 @@ function queryCallback(queryParam, queryType, callback) {
 		connection.query("SELECT * FROM player WHERE name = ?", [queryParam], (error, results, fields) => {
 			if (error) throw error;
 
-			console.log(results)
+			// console.log(results)
 			callback(results);
 		});
 
@@ -33,7 +33,7 @@ function queryCallback(queryParam, queryType, callback) {
 		connection.query(queryParam, (error, results, fields) => {
 			if (error) throw error;
 
-			console.log(results)
+			// console.log(results)
 			callback(results);
 		});
 
@@ -45,7 +45,7 @@ function queryCallback(queryParam, queryType, callback) {
 		connection.query("CALL showAggregateStatistics(?, ?, ?)", [queryParam[0], queryParam[1], queryParam[2]], (error, results, fields) => {
 			if (error) throw error;
 
-			console.log(results)
+			// console.log(results)
 			callback(results);
 		});
 
