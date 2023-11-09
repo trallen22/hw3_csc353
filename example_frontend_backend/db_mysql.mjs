@@ -17,6 +17,7 @@ function connect() {
 
 function queryCallback(queryParam, queryType, callback) {
 	//if we want our player info query
+
 	if(queryType == 'playerQuery'){
 
 		connection.query("SELECT * FROM player WHERE name = ?", [queryParam], (error, results, fields) => {
@@ -30,10 +31,9 @@ function queryCallback(queryParam, queryType, callback) {
 	//if we want our tournament query
 	else if(queryType == 'yearQuery'){
 
-		connection.query(queryParam, (error, results, fields) => {
+		connection.query("SELECT * FROM tournament WHERE tourney_date > '" + queryParam + "-01-01' AND tourney_date < '" + queryParam + "-12-31'", (error, results, fields) => {
 			if (error) throw error;
-
-			// console.log(results)
+			
 			callback(results);
 		});
 

@@ -33,9 +33,9 @@ app.get('/player', function(request, response){
 app.get('/tournament', function(request, response){
     // If we have fields available
     // console.log(request.query["field1"]);
-
     let year = request.query["tourney_date"]
-    db.queryCallback("SELECT * FROM tournament WHERE tourney_date > '" + year + "-01-01' AND tourney_date < '" + year + "-12-31'", 'yearQuery', (results) => {
+
+    db.queryCallback(year, 'yearQuery', (results) => {
         response.json(results)
     })
 });
